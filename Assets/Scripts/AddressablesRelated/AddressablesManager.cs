@@ -19,7 +19,15 @@ namespace Stemuli
         {
             if (clearCache)
             {
-                Caching.ClearCache();
+                //Clears all of the caches
+                if (Caching.ClearCache())
+                {
+                    Debug.Log("cache cleared");
+                }
+                else
+                {
+                    Debug.Log("Unable to clear cache");
+                }
             }
 
             await Addressables.InitializeAsync();
@@ -36,7 +44,7 @@ namespace Stemuli
                 Debug.Log("No update avaliable");
             }
 
-            SceneManager.LoadScene("Login");
+            await Addressables.InstantiateAsync("scene");
         }
 
         private float BytesToKiloBytes(long bytes)
@@ -89,6 +97,8 @@ namespace Stemuli
                         //}
                     }
                 }
+
+                Debug.Log("all downloads completed");
             }
         }
     }
